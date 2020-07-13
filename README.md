@@ -1,12 +1,15 @@
 # stingray_unix
-Fortran source code for Stingray ray-tracing algorithm written in ascii I/O format by the Wilcock Lab Group
+Fortran source code for Stingray ray-tracing algorithm written in ascii I/O format by the Wilcock Lab Group.
 For information regarding the Stingray program, see: https://pages.uoregon.edu/drt/Stingray/
 
 LOCATIONS OF FILES IN STINGRAY FILING STRUCTURE:
 
 Stingray/toolbox/stingray_fortran.m (this is used in place of stingray.m)
+
 Stingray/source/stingray_src.F (the original Stingray Fortran source code)
+
 Stingray/source/stingray_src_unix.F (this is stingray_src.F rewritten in ascii I/O form)
+
 Stingray/source/stingray_basedims.F (manual dimensioning of input variables used as an include file, intended to be much larger than needed)
 
 
@@ -30,16 +33,24 @@ The logic of how this works:
 
 1) A matlab script written to organize all input files and call the Stingray program, such as P_Crustal_Stingray_run.m, calls to the function stingray.m
      -->   This needs to be in the same directory as an srInput and srOutput folder
+     
 2) Stingray.m writes all necessary variables to ascii files
+
 3) Stingray.m executes the unix file, stingray_src_unix
+
 4) The unix file reads all the necessary variables out of the ascii files
+
 5) The unix file executes the Fortran code
      -->   The loop is the second part of the unix file.
+     
 6) The unix file writes the output variables to ascii files, and returns to stingray.m
+
 7) Stingray.m reads the output variables and uses them to create an srRays structure
 
 
 To compile the stingray_src_unix.F code into a unix executable, for example, Zoe uses the Intel iFort compiler, specifically with this command in the Matlab command window:
+
 !/opt/intel/compilers_and_libraries_2020.0.166/mac/bin/intel64/ifort -o stingray_src_unix stingray_src_unix.F
+
 The filepath part of this command will change depending on where in your computer the compiler is saved.
 
